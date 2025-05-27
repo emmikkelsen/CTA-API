@@ -8,8 +8,8 @@
 import Combine
 import Foundation
 
-@MainActor
-public class CTAAPI: ObservableObject {
+
+public struct CTAAPI {
     let busKey: String
     let trainKey: String
 
