@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 
-public struct CTAAPI {
+public struct CTAAPI: Sendable {
     let busKey: String
     let trainKey: String
 
