@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MapKit
 
 public struct Bus: GenericVehicle {
     public let destination: String
@@ -14,14 +13,14 @@ public struct Bus: GenericVehicle {
     public var direction: String
     public let CTAID: String
     public let patternId: Int?
-    public var location: CLLocationCoordinate2D?
+    public var location: Coordinate?
     public let delayed: Bool
     public let vehicleType: VehicleType = .bus
 
     public init(
         destination: String, route: String, direction: String = "UNKNOWN",
         CTAID: String, patternId: Int? = nil,
-        location: CLLocationCoordinate2D? = nil,
+        location: Coordinate? = nil,
         delayed: Bool = false
     ) {
         self.destination = destination

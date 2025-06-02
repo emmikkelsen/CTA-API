@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MapKit
 
 struct TrainETA: Decodable, Identifiable {
     let staId: String
@@ -53,9 +52,9 @@ struct TrainWrapper: Decodable {
     let eta: [TrainETA]
 
     func toTrain() -> Train? {
-        let location: CLLocationCoordinate2D?
+        let location: Coordinate?
         if self.position.lat?.value != nil && self.position.lat?.value != nil {
-            location = CLLocationCoordinate2D(
+            location = Coordinate(
                 latitude: self.position.lat!.value,
                 longitude: self.position.lon!.value)
         } else {

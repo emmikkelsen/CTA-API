@@ -5,7 +5,6 @@
 //  Created by Emil Bach Mikkelsen on 1/6/25.
 //
 
-import MapKit
 
 public protocol GenericVehicle: VehicleWithID, Sendable {
     var destination: String { get }
@@ -13,7 +12,7 @@ public protocol GenericVehicle: VehicleWithID, Sendable {
     var vehicleType: VehicleType { get }
     var direction: String { get }
     var CTAID: String { get }
-    var location: CLLocationCoordinate2D? { get }
+    var location: Coordinate? { get }
     var delayed: Bool { get }
 }
 

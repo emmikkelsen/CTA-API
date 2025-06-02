@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MapKit
 
 struct TrainPatternPoint: Decodable {
     let seq: Int
@@ -54,9 +53,9 @@ struct TrainPattern: Decodable {
 struct TrainPatternContainer {
     let pattern: TrainPattern
 
-    func toCoordinates() -> [CLLocationCoordinate2D] {
-        return pattern.pt.map({ (point) -> CLLocationCoordinate2D in
-            return CLLocationCoordinate2D(
+    func toCoordinates() -> [Coordinate] {
+        return pattern.pt.map({ (point) -> Coordinate in
+            return Coordinate(
                 latitude: point.lat, longitude: point.lon)
         })
     }

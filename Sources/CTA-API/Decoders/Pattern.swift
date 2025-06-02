@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import MapKit
 
 public enum PatternNodeType: String, Decodable, Sendable {
     case stop = "S"
@@ -79,9 +78,9 @@ public struct Pattern: Decodable, Sendable {
 struct PatternContainer {
     let pattern: Pattern
 
-    func toCoordinates() -> [CLLocationCoordinate2D] {
-        return pattern.pt.map({ (point) -> CLLocationCoordinate2D in
-            return CLLocationCoordinate2D(
+    func toCoordinates() -> [Coordinate] {
+        return pattern.pt.map({ (point) -> Coordinate in
+            return Coordinate(
                 latitude: point.lat, longitude: point.lon)
         })
     }

@@ -4,9 +4,6 @@
 //
 //  Created by Emil Bach Mikkelsen on 11/27/24.
 //
-
-import MapKit
-
 struct BusAPIVehicle: Decodable {
     let vid: String
     let tmstmp: String
@@ -33,7 +30,7 @@ struct BusAPIVehicle: Decodable {
             route: self.rt,
             CTAID: self.vid,
             patternId: self.pid,
-            location: CLLocationCoordinate2D(
+            location: Coordinate(
                 latitude: self.lat.value, longitude: self.lon.value),
             delayed: dly
         )
