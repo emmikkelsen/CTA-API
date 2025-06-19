@@ -6,21 +6,28 @@
 //
 
 import Foundation
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
 
+#if canImport(FoundationNetworking)
+    import FoundationNetworking
+#endif
 
 public struct CTAAPI: Sendable {
     let busKey: String
     let trainKey: String
+    let caller: @Sendable (URL) async throws -> (Data, URLResponse)
 
-    public init(busKey: String, trainKey: String) {
+    public init(
+        busKey: String, trainKey: String,
+        caller: @escaping @Sendable (URL) async throws -> (Data, URLResponse) = { URL in
+            try await URLSession.shared.data(from: URL)
+        }
+    ) {
         self.busKey = busKey
         self.trainKey = trainKey
+        self.caller = caller
     }
 
-    func addKeyToURL(_ url: URL, type: APIType) -> URL {
+    private func addKeyToURL(_ url: URL, type: APIType) -> URL {
         return url.appending(queryItems: [
             URLQueryItem(
                 name: "key",
@@ -30,7 +37,7 @@ public struct CTAAPI: Sendable {
 
     public func get<T: APIResource>(resource: T) async throws -> T.Resource {
         let url = addKeyToURL(resource.url, type: resource.apiType)
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await caller(url)
         var wrapper: T.APIModelType?
         do {
             let decoder = JSONDecoder()

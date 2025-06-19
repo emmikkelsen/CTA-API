@@ -11,7 +11,7 @@ public protocol EmptyInit {
     static func initEmpty() -> Self
 }
 
-public enum APIType {
+public enum APIType: Sendable {
     case bus
     case train
 }
