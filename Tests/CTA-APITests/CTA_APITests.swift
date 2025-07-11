@@ -130,7 +130,7 @@ struct CTAApiTests {
             return response.mockResponse
         }
 
-        init(apiType: APIType = .train) {
+        init(apiType: APIType = .CTA(apiType: .train)) {
             self.apiType = apiType
             self.filter = []
         }
@@ -223,7 +223,7 @@ struct CTAApiTests {
         let busAPI = CTAAPI(busKey: busKey, trainKey: trainKey, caller: busCaller)
 
         // When - Test bus resource
-        let busResource = TestDecodableResource(apiType: .bus)
+        let busResource = TestDecodableResource(apiType: .CTA(apiType: .bus))
         _ = try await busAPI.get(resource: busResource)
 
         // Then - Should use bus key
@@ -240,7 +240,7 @@ struct CTAApiTests {
         let trainAPI = CTAAPI(busKey: busKey, trainKey: trainKey, caller: trainCaller)
 
         // When - Test train resource
-        let trainResource = TestDecodableResource(apiType: .train)
+        let trainResource = TestDecodableResource(apiType: .CTA(apiType: .train))
         _ = try await trainAPI.get(resource: trainResource)
 
         // Then - Should use train key
@@ -294,7 +294,7 @@ struct CTAApiTests {
         struct TestBusResource: APIResource {
             var methodPath = "test"
             var filter: [URLQueryItem] = []
-            var apiType: APIType = .bus
+            var apiType: APIType = .CTA(apiType: .bus)
 
             func decode(response: TestResponse) -> String { "" }
         }
@@ -316,7 +316,7 @@ struct CTAApiTests {
         struct TestTrainResource: APIResource {
             var methodPath = "test"
             var filter: [URLQueryItem]
-            var apiType: APIType = .train
+            var apiType: APIType = .CTA(apiType: .train)
 
             init(filter: [URLQueryItem]) {
                 self.filter = filter
@@ -337,5 +337,29 @@ struct CTAApiTests {
         #expect(url.absoluteString.hasPrefix("https://lapi.transitchicago.com/api/1.0/test"))
         #expect(url.absoluteString.contains("outputType=JSON") == true)
         #expect(url.absoluteString.contains("test=value") == true)
+    }
+
+    @Test("Test RoutesResource")
+    func testRoutesResource() async throws {
+        let resource = RoutesResource(apiType: .sandbox)
+        let api = CTAAPI(busKey: testBusKey, trainKey: testTrainKey)
+        let result = try await api.get(resource: resource)
+        #expect(result.count > 0)
+    }
+
+    @Test("Test StopMappingResource")
+    func testStopMappingResource() async throws {
+        let resource = StopMappingResource(apiType: .sandbox)
+        let api = CTAAPI(busKey: testBusKey, trainKey: testTrainKey)
+        let result = try await api.get(resource: resource)
+        #expect(result.count > 0)
+    }
+
+    @Test("Test StopRouteMappingResource")
+    func testStopRouteMappingResource() async throws {
+        let resource = StopRouteMappingResource(apiType: .sandbox)
+        let api = CTAAPI(busKey: testBusKey, trainKey: testTrainKey)
+        let result = try await api.get(resource: resource)
+        #expect(result.count > 0)
     }
 }

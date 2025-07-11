@@ -10,7 +10,7 @@ import Foundation
 public struct VehicleResource: APIResource {
     public var methodPath = "getvehicles"
     public var filter: [URLQueryItem]
-    public var apiType: APIType = .bus
+    public var apiType: APIType = .CTA(apiType: .bus)
 
     public init(vid: String) {
         filter = [URLQueryItem(name: "vid", value: vid)]

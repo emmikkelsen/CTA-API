@@ -10,7 +10,7 @@ import Foundation
 public struct TrainArrivalResource: APIResource {
     public var methodPath = "ttarrivals.aspx"
     public var filter: [URLQueryItem]
-    public var apiType: APIType = .train
+    public var apiType: APIType = .CTA(apiType: .train)
 
     public init(mapid: String) {
         filter = [URLQueryItem(name: "mapid", value: mapid)]

@@ -27,16 +27,29 @@ public struct CTAAPI: Sendable {
         self.caller = caller
     }
 
-    private func addKeyToURL(_ url: URL, type: APIType) -> URL {
-        return url.appending(queryItems: [
-            URLQueryItem(
-                name: "key",
-                value: ((type == APIType.bus) ? self.busKey : self.trainKey))
-        ])
+    private func addKeyToURL(_ url: URL, apiType: APIType) -> URL {
+        switch apiType {
+        case .CTA(apiType: .bus):
+            return url.appending(queryItems: [
+                URLQueryItem(
+                    name: "key",
+                    value: self.busKey)
+            ])
+        case .CTA(apiType: .train):
+            return url.appending(queryItems: [
+                URLQueryItem(
+                    name: "key",
+                    value: self.trainKey)
+            ])
+        case .ChicagoETA(apiType: .sandbox):
+            return url
+        case .ChicagoETA(apiType: .production):
+            return url
+        }
     }
 
     public func get<T: APIResource>(resource: T) async throws -> T.Resource {
-        let url = addKeyToURL(resource.url, type: resource.apiType)
+        let url = addKeyToURL(resource.url, apiType: resource.apiType)
         let (data, _) = try await caller(url)
         var wrapper: T.APIModelType?
         do {

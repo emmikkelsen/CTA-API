@@ -11,7 +11,7 @@ public struct PatternResource: APIResource {
 
     public var methodPath = "getpatterns"
     public var filter: [URLQueryItem]
-    public var apiType: APIType = .bus
+    public var apiType: APIType = .CTA(apiType: .bus)
 
     public init(pid: Int) {
         filter = [URLQueryItem(name: "pid", value: String(pid))]

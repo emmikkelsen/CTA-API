@@ -10,7 +10,7 @@ import Foundation
 public struct TrainResource: APIResource {
     public var methodPath = "ttfollow.aspx"
     public var filter: [URLQueryItem]
-    public var apiType: APIType = .train
+    public var apiType: APIType = .CTA(apiType: .train)
 
     public init(runnumber: String) {
         filter = [URLQueryItem(name: "runnumber", value: runnumber)]
