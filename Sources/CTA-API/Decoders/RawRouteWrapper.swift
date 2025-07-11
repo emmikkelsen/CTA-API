@@ -6,7 +6,7 @@
 //
 
 public struct RawRouteWrapper: Decodable, EmptyInit {
-    let routes: [RawRouteInfo]
+    public let routes: [RawRouteInfo]
 
     public static func initEmpty() -> RawRouteWrapper {
         return RawRouteWrapper(routes: [])
@@ -14,12 +14,12 @@ public struct RawRouteWrapper: Decodable, EmptyInit {
 }
 
 public struct RawRouteInfo: Decodable, Sendable {
-    let identifier: String
-    let shortName: String
-    let longName: String
-    let color: String
-    let type: String
-    let textColor: String
+    public let identifier: String
+    public let shortName: String
+    public let longName: String
+    public let color: String
+    public let type: String
+    public let textColor: String
 
     enum CodingKeys: String, CodingKey {
         case identifier
