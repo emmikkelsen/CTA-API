@@ -7,9 +7,15 @@
 
 import Foundation
 
+public struct RawGlobalSubStop: Decodable, Sendable {
+    public let CTAID: String
+    public let lat: Double
+    public let lon: Double
+}
+
 public struct RawGlobalStop: Decodable, Sendable {
     public let name: String
-    public let sub: [String]
+    public let sub: [RawGlobalSubStop]
     public let lat: Double
     public let lon: Double
     public let pid: String?
