@@ -56,7 +56,7 @@ extension APIResource {
             return URL(string: "https://dev.chicagoetas.xyz/data/")!
                 .appendingPathComponent(methodPath)
         case .ChicagoETA(apiType: .production):
-            return URL(string: "https://chicagoetas.xyz/data/")!
+            return URL(string: "https://dev.chicagoetas.xyz/data/")!
                 .appendingPathComponent(methodPath)
         }
     }
