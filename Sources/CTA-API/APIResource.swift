@@ -53,7 +53,7 @@ extension APIResource {
                         URLQueryItem(name: "outputType", value: "JSON")
                     ])
         case .ChicagoETA(apiType: .sandbox):
-            return URL(string: "https://dev.chicagoetas.xyz/data/")!
+            return URL(string: "https://dev1.chicagoetas.xyz/data/")!
                 .appendingPathComponent(methodPath)
         case .ChicagoETA(apiType: .production):
             return URL(string: "https://chicagoetas.xyz/data/")!
